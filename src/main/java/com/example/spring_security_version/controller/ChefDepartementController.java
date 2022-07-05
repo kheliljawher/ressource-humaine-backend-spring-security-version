@@ -8,6 +8,8 @@ import com.example.spring_security_version.exception.ChefDepartementNotFoundExce
 import com.example.spring_security_version.repository.ChefDepartementRepository;
 import com.example.spring_security_version.repository.DepartementRepository;
 import com.example.spring_security_version.repository.PlanningRepository;
+import com.example.spring_security_version.secutity.AppUser;
+import com.example.spring_security_version.secutity.UserService;
 import com.example.spring_security_version.service.ChefDepartementService;
 import com.example.spring_security_version.service.StockageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,9 @@ public class ChefDepartementController {
 
     @Autowired
     private DepartementRepository departementRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
 
@@ -83,6 +88,8 @@ public class ChefDepartementController {
             stockageService.store(file,filename);
             chefDepartement.setImage(filename);
             chefDepartement.setRole("CHEFDEPARTEMENT");
+            AppUser user = new AppUser(chefDepartement.getLogin(),chefDepartement.getPassword(),chefDepartement.getRole());
+            userService.save(user);
             chefDepartementService.save(chefDepartement);
             return new ResponseEntity<>(HttpStatus.OK);
         }

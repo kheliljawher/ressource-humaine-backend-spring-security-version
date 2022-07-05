@@ -14,6 +14,8 @@ import java.util.List;
 @Entity
 public class ChefDepartement extends Utilisateur {
 
+
+
     //private Integer nbEmpDept ;
 
     //@OneToMany(mappedBy = "chef_departement")

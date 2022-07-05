@@ -24,10 +24,6 @@ public class UserService implements UserDetailsService{
         return new BCryptPasswordEncoder();
     }
 
-    public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException{
-        return new User("jawher",passwordEncoder().encode("password"), AuthorityUtils.NO_AUTHORITIES);
-    }
-
     public void save(AppUser user){
         user.setPassword(passwordEncoder().encode(user.getPassword()));
         appUserRepository.save(user);
@@ -35,6 +31,12 @@ public class UserService implements UserDetailsService{
 
     public List<AppUser> findAll(){
         return appUserRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser user = appUserRepository.findByLogin(username);
+        return user;
     }
 
 }

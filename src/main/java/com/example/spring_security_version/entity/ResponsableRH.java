@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -14,6 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class ResponsableRH extends Utilisateur{
+
+
+    public ResponsableRH(String login, String role, String status) {
+        this.login = login;
+        this.role = role;
+        this.status = status;
+    }
 
     @OneToMany(mappedBy = "responsable_rh")
     //@Getter( onMethod = @__(@JsonIgnore))

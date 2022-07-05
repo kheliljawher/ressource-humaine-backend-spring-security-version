@@ -6,6 +6,8 @@ import com.example.spring_security_version.repository.CongeRepository;
 import com.example.spring_security_version.repository.DepartementRepository;
 import com.example.spring_security_version.repository.EmployeRepository;
 import com.example.spring_security_version.repository.PlanningRepository;
+import com.example.spring_security_version.secutity.AppUser;
+import com.example.spring_security_version.secutity.UserService;
 import com.example.spring_security_version.service.EmployeService;
 import com.example.spring_security_version.service.StockageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class EmployeController {
 
     @Autowired
     private DepartementRepository departementRepository;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
 
@@ -116,7 +121,8 @@ public class EmployeController {
             SimpleDateFormat dateFormatter = new SimpleDateFormat ("dd-MM-yyyy"); //Format for output
             employe.setDate(dateFormatter.format(dn)); //Printing the date
             */
-
+            AppUser user = new AppUser(employe.getLogin(),employe.getPassword(),employe.getRole());
+            userService.save(user);
             employeService.save(employe);
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -180,5 +186,26 @@ public class EmployeController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
     }
+
+    /*@GetMapping("/id_employe/id_plannig")
+    @ResponseBody
+    public ResponseEntity<Employe> getEmployeById(@PathVariable(value = "id_employe") Long id_employe, @PathVariable(value = "id_plannig") Long id_plannig))
+            throws EmployeNotFoundException {
+        Employe employe =
+                employeService
+                        .findEmployeById(id_employe)
+                        .orElseThrow(() -> new EmployeNotFoundException(id));
+        return ResponseEntity.ok().body(employe);
+    }
+
+    @GetMapping("/id_chef_departement/id_plannig")
+    @ResponseBody
+    public ResponseEntity<Resource> getFile(@PathVariable String filename){
+        Resource file = stockageService.loadFile(filename);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                .body(file);
+    }*/
+
 
 }

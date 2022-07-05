@@ -25,7 +25,7 @@ public class Utilisateur {
 
     private String prenom;
 
-    private String login;
+    public String login;
 
     private String password;
 
@@ -47,13 +47,13 @@ public class Utilisateur {
 
     private String date_Naissance;
 
-    private String role;
+    public String role;
 
     private String image;
 
     private String confirmPassword;
 
-    private String status;
+    public String status;
 
     private String sexs;
 

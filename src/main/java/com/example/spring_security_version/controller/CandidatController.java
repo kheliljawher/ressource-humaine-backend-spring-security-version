@@ -4,6 +4,8 @@ import com.example.spring_security_version.entity.Candidat;
 import com.example.spring_security_version.entity.Departement;
 import com.example.spring_security_version.exception.CandidatNotFoundException;
 import com.example.spring_security_version.repository.DepartementRepository;
+import com.example.spring_security_version.secutity.AppUser;
+import com.example.spring_security_version.secutity.UserService;
 import com.example.spring_security_version.service.CandidatService;
 import com.example.spring_security_version.service.StockageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class CandidatController {
 
     @Autowired
     private StockageService stockageService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
 
@@ -71,9 +76,9 @@ public class CandidatController {
         String filename1 = stockageService.fileName(fileLettreMotivation);
         stockageService.store(fileLettreMotivation,filename1);
         candidat.setImage(filename1);
+        AppUser user = new AppUser(candidat.getLogin(),candidat.getPassword(),candidat.getRole());
+        userService.save(user);
         return candidatService.save(candidat);
-
-
 
     }
 

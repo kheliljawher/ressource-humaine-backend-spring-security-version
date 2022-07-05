@@ -4,6 +4,8 @@ import com.example.spring_security_version.entity.ResponsableRH;
 import com.example.spring_security_version.entity.Utilisateur;
 import com.example.spring_security_version.exception.ResponsableRHNotFoundException;
 import com.example.spring_security_version.exception.UtilisateurNotFoundException;
+import com.example.spring_security_version.secutity.AppUser;
+import com.example.spring_security_version.secutity.UserService;
 import com.example.spring_security_version.service.ResponsableRHService;
 import com.example.spring_security_version.service.StockageService;
 import com.example.spring_security_version.service.UtilisateurService;
@@ -29,6 +31,9 @@ public class ResponsableRHController {
 
     @Autowired
     private StockageService stockageService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/")
 
@@ -62,6 +67,8 @@ public class ResponsableRHController {
 
         try {
             responsableRH.setRole("RESPONSABLERH");
+            AppUser user = new AppUser(responsableRH.getLogin(),responsableRH.getPassword(),responsableRH.getRole());
+            userService.save(user);
             responsableRHService.save(responsableRH);
             return new ResponseEntity<>(HttpStatus.OK);
         }

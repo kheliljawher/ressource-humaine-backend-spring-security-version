@@ -17,7 +17,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 //.apis(RequestHandlerSelectors.any())
-                .apis(RequestHandlerSelectors.basePackage("io.saslab.spring.ressourcehumaine"))
+                .apis(RequestHandlerSelectors.basePackage("com.example.spring_security_version"))
                 .paths(PathSelectors.any())
                 .build();
     }
