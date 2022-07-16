@@ -72,4 +72,7 @@ public class ChefDepartementService {
 
     }
 
+    public ChefDepartement findChefDepartementById(Long id_chef_departement) {
+        return chefDepartementRepository.findById(id_chef_departement).get();
+    }
 }

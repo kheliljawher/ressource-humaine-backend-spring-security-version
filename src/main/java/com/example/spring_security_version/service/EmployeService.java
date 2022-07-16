@@ -23,6 +23,14 @@ public class EmployeService {
 
     }
 
+    /*public Employe findEmployeById(Long id_employe) {
+
+        // TODO Auto-generated method stub
+
+        return employeRepository.findById(id_employe);
+
+    }*/
+
     public List<Employe> findAll() {
 
         // TODO Auto-generated method stub
@@ -77,6 +85,7 @@ public class EmployeService {
         employe.setPlanning(employeDetails.getPlanning());
         employe.setDepartement(employeDetails.getDepartement());
 
+        employe.setPlanning(employeDetails.getPlanning());
 
         return employeRepository.save(employe);
     }
@@ -90,4 +99,7 @@ public class EmployeService {
 
     }
 
+    public Employe findEmployeById(Long id_employe) {
+        return employeRepository.findById(id_employe).get();
+    }
 }

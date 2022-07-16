@@ -11,6 +11,7 @@ import com.example.spring_security_version.repository.PlanningRepository;
 import com.example.spring_security_version.secutity.AppUser;
 import com.example.spring_security_version.secutity.UserService;
 import com.example.spring_security_version.service.ChefDepartementService;
+import com.example.spring_security_version.service.PlanningService;
 import com.example.spring_security_version.service.StockageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -47,6 +48,9 @@ public class ChefDepartementController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PlanningService planningService;
 
     @GetMapping("/")
 
@@ -150,6 +154,17 @@ public class ChefDepartementController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
                 .body(file);
+    }
+
+    @GetMapping("/updatePlanning/{id_chef_departement}/{id_plannig}")
+    @ResponseBody
+    public void getChefDepartementByIdById(@PathVariable(value = "id_chef_departement") Long id_chef_departement, @PathVariable(value = "id_plannig") Long id_plannig)
+    {
+        ChefDepartement chefDepartement = chefDepartementService.findChefDepartementById(id_chef_departement);
+        Planning planning = planningService.findPlanningById(id_plannig);
+        chefDepartement.setPlanning(planning);
+        chefDepartementRepository.save(chefDepartement);
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.spring_security_version.service;
 
+import com.example.spring_security_version.entity.Employe;
 import com.example.spring_security_version.entity.Planning;
 import com.example.spring_security_version.exception.PlanningNotFoundException;
 import com.example.spring_security_version.repository.PlanningRepository;
@@ -20,6 +21,14 @@ public class PlanningService {
         // TODO Auto-generated method stub
 
         return planningRepository.save(planning);
+
+    }
+
+    public Planning findPlanningById(Long id_planning) {
+
+        // TODO Auto-generated method stub
+
+        return planningRepository.findById(id_planning).get();
 
     }
 

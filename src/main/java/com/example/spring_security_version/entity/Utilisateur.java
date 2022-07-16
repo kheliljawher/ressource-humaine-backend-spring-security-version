@@ -27,6 +27,7 @@ public class Utilisateur {
 
     public String login;
 
+    @JsonIgnore
     private String password;
 
     private String cin;

@@ -9,6 +9,7 @@ import com.example.spring_security_version.repository.PlanningRepository;
 import com.example.spring_security_version.secutity.AppUser;
 import com.example.spring_security_version.secutity.UserService;
 import com.example.spring_security_version.service.EmployeService;
+import com.example.spring_security_version.service.PlanningService;
 import com.example.spring_security_version.service.StockageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -22,6 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/employe/")
@@ -43,6 +45,9 @@ public class EmployeController {
 
     @Autowired
     private PlanningRepository planningRepository;
+
+    @Autowired
+    private PlanningService planningService;
 
     @Autowired
     private DepartementRepository departementRepository;
@@ -187,17 +192,16 @@ public class EmployeController {
                 .body(file);
     }
 
-    /*@GetMapping("/id_employe/id_plannig")
+    @GetMapping("/updatePlanning/{id_employe}/{id_plannig}")
     @ResponseBody
-    public ResponseEntity<Employe> getEmployeById(@PathVariable(value = "id_employe") Long id_employe, @PathVariable(value = "id_plannig") Long id_plannig))
-            throws EmployeNotFoundException {
-        Employe employe =
-                employeService
-                        .findEmployeById(id_employe)
-                        .orElseThrow(() -> new EmployeNotFoundException(id));
-        return ResponseEntity.ok().body(employe);
+    public void getEmployeById(@PathVariable(value = "id_employe") Long id_employe, @PathVariable(value = "id_plannig") Long id_plannig)
+    {
+        Employe employe = employeService.findEmployeById(id_employe);
+        Planning planning = planningService.findPlanningById(id_plannig);
+        employe.setPlanning(planning);
+        employeRepository.save(employe);
     }
-
+/*
     @GetMapping("/id_chef_departement/id_plannig")
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename){
