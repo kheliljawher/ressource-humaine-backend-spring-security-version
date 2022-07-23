@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] PUBLIC_ENDPOINTS = {
-                "/user/**","/api/candidat/**","/api/candidature/**","/swagger-ui.html#/**","/v2/api-docs/**","/api/employe/files/**"
+                "/user/**","/api/candidat/**","/api/candidature/**","/swagger-ui.html#/**","/v2/api-docs/**","/api/employe/files/**",
     };
 
     @Override

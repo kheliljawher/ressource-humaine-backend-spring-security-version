@@ -1,9 +1,14 @@
 package com.example.spring_security_version.controller;
 
 import com.example.spring_security_version.entity.Candidat;
+import com.example.spring_security_version.entity.Candidature;
 import com.example.spring_security_version.entity.Departement;
+import com.example.spring_security_version.entity.InterviewCandidat;
 import com.example.spring_security_version.exception.CandidatNotFoundException;
+import com.example.spring_security_version.repository.CandidatRepository;
+import com.example.spring_security_version.repository.CandidatureRepository;
 import com.example.spring_security_version.repository.DepartementRepository;
+import com.example.spring_security_version.repository.InterviewCandidatureRepository;
 import com.example.spring_security_version.secutity.AppUser;
 import com.example.spring_security_version.secutity.UserService;
 import com.example.spring_security_version.service.CandidatService;
@@ -13,6 +18,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,10 +45,40 @@ public class CandidatController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private InterviewCandidatureRepository interviewCandidatureRepository;
+
+    @Autowired
+    private CandidatureRepository candidatureRepository;
+
+    @Autowired
+    private CandidatRepository candidatRepository;
+
     @GetMapping("/")
 
     public String getMessage() {
         return "Candidat controller ...";
+    }
+
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+
+    @PostMapping("/sendEmailInterview/{id_candidat}")
+    public void SendSimpleMessage(@RequestBody InterviewCandidat interviewCandidat,@PathVariable Long id_candidat){
+       // Candidature candidature = candidatureRepository.findById(id_candidature).get();
+        SimpleMailMessage msg = new SimpleMailMessage();
+        Candidat candidat = candidatRepository.findById(id_candidat).get();
+        msg.setTo(candidat.getEmail());
+
+        msg.setSubject("Interview ");
+        msg.setText("Hello " +candidat.getNom()+ " \n date :"+interviewCandidat.getDate());
+
+        javaMailSender.send(msg);
+        interviewCandidat.setCandidat(candidat);
+        interviewCandidatureRepository.save(interviewCandidat);
+
+        System.out.println("email done");
     }
 
     @GetMapping("getAll")

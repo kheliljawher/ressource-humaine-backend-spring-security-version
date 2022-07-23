@@ -68,6 +68,7 @@ public class CongeController {
 
         try {
             Utilisateur utilisateur= utilisateurRepository.findById(id_utilisateur).get();
+            conge.setStatus("NOUVEAU");
             conge.setUtilisateur(utilisateur);
             System.out.println(utilisateur);
             /*ChefDepartement chefDepartement=chefDepartementRepository.findById(id_chefDepartement).get();

@@ -29,4 +29,8 @@ public class Candidat extends Utilisateur{
     @JsonIgnore
     private List<DemandeCandidature> demandeCandidatures;
 
+    @OneToMany(mappedBy = "candidat")
+    @Getter( onMethod = @__(@JsonIgnore))
+    private List<InterviewCandidat> interviewCandidats;
+
 }

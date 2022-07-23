@@ -1,5 +1,6 @@
 package com.example.spring_security_version.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,8 @@ public class DemandeCandidature {
 
     @JoinColumn(name = "id_candidature")
     @ManyToOne
+    @Getter( onMethod = @__(@JsonIgnore))
+    @JsonIgnore
     private Candidature candidature;
 
 }

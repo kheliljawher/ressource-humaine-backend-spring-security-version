@@ -7,6 +7,7 @@ import com.example.spring_security_version.entity.Planning;
 import com.example.spring_security_version.exception.DemandeCandidatureNotFoundException;
 import com.example.spring_security_version.repository.CandidatRepository;
 import com.example.spring_security_version.repository.CandidatureRepository;
+import com.example.spring_security_version.repository.DemandeCandidatureRepository;
 import com.example.spring_security_version.service.DemandeCandidatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,9 @@ public class DemandeCandidatureController {
 
     @Autowired
     DemandeCandidatureService demandeCandidatureService;
+
+    @Autowired
+    DemandeCandidatureRepository demandeCandidatureRepository;
 
     @Autowired
     CandidatRepository candidatRepository;
@@ -63,7 +67,7 @@ public class DemandeCandidatureController {
     public ResponseEntity<HttpStatus> createDemandeCandidature(@Validated @RequestBody DemandeCandidature demandeCandidature, @PathVariable Long id_candidat, @PathVariable Long id_candidature){
 
         try {
-            demandeCandidature.setEtat("en attente");
+            demandeCandidature.setEtat("EN COURS");
             Candidat candidat=candidatRepository.findById(id_candidat).get();
             demandeCandidature.setCandidat(candidat);
             Candidature candidature=candidatureRepository.findById(id_candidature).get();
@@ -103,5 +107,20 @@ public class DemandeCandidatureController {
         }
 
     }
+
+
+    /*@GetMapping("/etatDemandeCandidature/{id_demande_candidature}/{etat}")
+    public DemandeCandidature updateEtat(@PathVariable Long id_demande_candidature,@PathVariable String etat){
+
+        // find by id demande
+
+        DemandeCandidature demandeCandidature = demandeCandidatureRepository.findById(id_demande_candidature).get();
+
+        demandeCandidature.getEtat(this.etat).get();
+        //   setEtat(etat)
+
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }*/
 
 }

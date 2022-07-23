@@ -137,6 +137,30 @@ public class EmployeController {
 
     }
 
+   /* @PostMapping("create/{id_planning}/{id_departement}")
+    @ResponseStatus(HttpStatus.CREATED)
+    //@ResponseHeader(description = "abc")
+    public ResponseEntity<HttpStatus> createEmployeWithoutImage(@PathVariable Long id_planning, @PathVariable Long id_departement, @RequestBody Employe employe){
+
+        try {
+            employe.setActif("OUI");
+            Planning planning=planningRepository.findById(id_planning).get();
+            employe.setPlanning(planning);
+            Departement departement=departementRepository.findById(id_departement).get();
+            employe.setDepartement(departement);
+            employe.setRole("EMPLOYE");
+
+            AppUser user = new AppUser(employe.getLogin(),employe.getPassword(),employe.getRole());
+            userService.save(user);
+            employeService.save(employe);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }*/
+
     @PutMapping("{id_employe}/{id_planning}/{id_departement}")
     public Employe updateEmploye(@PathVariable(value = "id_employe") Long id_employe, @PathVariable Long id_planning,  @PathVariable Long id_departement, @RequestParam("file") MultipartFile file, Employe employeDetails) throws EmployeNotFoundException
     {
