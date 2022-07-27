@@ -29,4 +29,8 @@ public class DemandeCandidature {
     @JsonIgnore
     private Candidature candidature;
 
+   // @JoinColumn(name = "id_candidature_detail")
+   // @ManyToOne
+    //private Candidature candidatureDetail;
+
 }

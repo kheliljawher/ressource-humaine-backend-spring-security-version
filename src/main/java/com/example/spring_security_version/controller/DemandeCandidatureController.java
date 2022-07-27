@@ -108,8 +108,13 @@ public class DemandeCandidatureController {
 
     }
 
+    @GetMapping("/getDemandeByCandidat/{id_candidat}")
+    public List<DemandeCandidature> getDemandeByCandidat(@PathVariable Long id_candidat){
+        return demandeCandidatureRepository.getDemandeByCandidatId(id_candidat);
+    }
 
-    /*@GetMapping("/etatDemandeCandidature/{id_demande_candidature}/{etat}")
+
+   /* @GetMapping("/etatDemandeCandidature/{id_demande_candidature}/{etat}")
     public DemandeCandidature updateEtat(@PathVariable Long id_demande_candidature,@PathVariable String etat){
 
         // find by id demande

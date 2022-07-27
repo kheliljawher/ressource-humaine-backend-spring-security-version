@@ -105,7 +105,7 @@ public class CandidatController {
     //@ResponseHeader(description = "abc")
     public Candidat createCandidat(Candidat candidat, @RequestParam("fileCv") MultipartFile fileCv, @RequestParam("fileLettreMotivation") MultipartFile fileLettreMotivation){
 
-
+        
         candidat.setRole("CANDIDAT");
         String filename = stockageService.fileName(fileCv);
         stockageService.store(fileCv,filename);

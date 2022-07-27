@@ -53,7 +53,11 @@ public class Candidature {
     private Departement departement;
 
     @OneToMany(mappedBy = "candidature")
-
     private List<DemandeCandidature> demandeCandidatures;
+
+   // @OneToMany(mappedBy = "candidatureDetail")
+   // @Getter( onMethod = @__(@JsonIgnore))
+   // @JsonIgnore
+   // private List<DemandeCandidature> demandeCandidaturesDetail;
 
 }
