@@ -1,9 +1,12 @@
 package com.example.spring_security_version.entity;
 
+import com.example.spring_security_version.serializers.CandidatureSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Getter
@@ -11,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class DemandeCandidature {
+public class DemandeCandidature implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +28,7 @@ public class DemandeCandidature {
 
     @JoinColumn(name = "id_candidature")
     @ManyToOne
-    @Getter( onMethod = @__(@JsonIgnore))
-    @JsonIgnore
+    @JsonSerialize(using = CandidatureSerializer.class)
     private Candidature candidature;
 
    // @JoinColumn(name = "id_candidature_detail")

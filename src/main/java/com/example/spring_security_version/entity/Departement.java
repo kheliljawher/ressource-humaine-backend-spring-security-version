@@ -1,6 +1,8 @@
 package com.example.spring_security_version.entity;
 
+import com.example.spring_security_version.serializers.ListUtilisateurSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,8 +22,9 @@ public class Departement {
     private String nom;
 
     @OneToMany(mappedBy = "departement")
-    @Getter( onMethod = @__(@JsonIgnore))
-    @JsonIgnore
+    //@Getter( onMethod = @__(@JsonIgnore))
+    //@JsonIgnore
+    @JsonSerialize(using = ListUtilisateurSerializer.class)
     private List<Utilisateur> utilisateurs;
 
     @OneToMany(mappedBy = "departement")

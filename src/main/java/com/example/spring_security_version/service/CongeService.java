@@ -62,4 +62,7 @@ public class CongeService {
 
     }
 
+    public List<Conge> findByType(Long id_utilisateur, String type) {
+        return congeRepository.findByUtilisateurAndType_conge(id_utilisateur,type);
+    }
 }

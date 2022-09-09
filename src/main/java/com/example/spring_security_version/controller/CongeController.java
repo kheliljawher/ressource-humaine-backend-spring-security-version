@@ -108,4 +108,9 @@ public class CongeController {
 
     }
 
+    @GetMapping("/findByType/{id_utilisateur}/{type}")
+    public List<Conge> getAllCongeByType(@PathVariable Long id_utilisateur,@PathVariable String type){
+        return congeService.findByType(id_utilisateur,type);
+    }
+
 }
